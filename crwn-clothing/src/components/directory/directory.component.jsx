@@ -8,6 +8,7 @@ const Directory = ({categories}) =>
     return(
         <div className="directory-container">
             {categories.map( (category) =>
+            // for each category/ object/ v element in categories return the category
                     ( <CategoryItem key={category.id} category={category}/>)
                 )
             } 

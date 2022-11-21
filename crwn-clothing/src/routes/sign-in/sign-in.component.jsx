@@ -3,12 +3,9 @@ import {
   createUserProfileDocument,
 } from '../../utils/firebase/firebase.utils';
 
-const SignIn = () => {
-  const logGoogleUser = async () => {
-    const response = await signInWithGooglePopup();
-    createUserProfileDocument(response);
-  };
-
+export const SignIn = () =>
+{
+  const logGoogleUser = async () =>{const response = await signInWithGooglePopup(); createUserProfileDocument(response);};
   return (
     <div>
       <h1>Sign In Page</h1>
@@ -17,4 +14,3 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;

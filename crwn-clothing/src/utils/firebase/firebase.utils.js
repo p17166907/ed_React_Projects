@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import {getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider,} from 'firebase/auth';
+import {doc, getDoc, getFirestore, setDoc} from 'firebase/firestore'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -21,10 +22,27 @@ provider.setCustomParameters({prompt: 'select_account',});
 export const createUserProfileDocument = async (userAuth, additionalData) =>
 {
   if (!userAuth) return;
-  console.log(userAuth);
+  console.log('userAuth',userAuth);
 };
 
 // Returns the Auth instance associated with the provided @firebase/app#FirebaseApp.
 //If no instance exists, initializes an Auth instance with platform-specific default dependencies.
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+
+// Returns the existing Firestore instance that is associated 
+//with the provided @firebase/app#FirebaseApp. 
+//If no instance exists, initializes a new instance with default settings
+export const db = getFirestore()
+
+export const createUserDocumentFromAuth = async (userAuth) =>
+{
+  const userDocRef = doc(db, 'users',  userAuth.uid)
+  console.log('userDocRef', userDocRef);
+
+  const userSnapshot = await getDoc(userDocRef)
+  console.log('userSnapshot',userSnapshot);
+  console.log('userSnapshot.exists()',userSnapshot.exists());
+
+}
+

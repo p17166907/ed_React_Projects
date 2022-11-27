@@ -7,6 +7,7 @@ export const SignIn = () =>
     // wait for signInWithGooglePopup() saved in response
     const response = await signInWithGooglePopup(); 
     createUserProfileDocument(response);
+    console.log(response.user);
   };
   return (
     <div>

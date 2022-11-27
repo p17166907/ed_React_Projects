@@ -15,14 +15,16 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 
 const provider = new GoogleAuthProvider();
-
+// provider.setCustomParameters() Sets the OAuth custom parameters to pass in an OAuth request for popup and redirect sign-in operations.
 provider.setCustomParameters({prompt: 'select_account',});
 
-export const createUserProfileDocument = async (userAuth, additionalData) => {
+export const createUserProfileDocument = async (userAuth, additionalData) =>
+{
   if (!userAuth) return;
-
   console.log(userAuth);
 };
 
+// Returns the Auth instance associated with the provided @firebase/app#FirebaseApp.
+//If no instance exists, initializes an Auth instance with platform-specific default dependencies.
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);

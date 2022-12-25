@@ -1,3 +1,4 @@
+import './category-item.styles.scss';
 
 export const CategoryItem = ( { category } ) => 
 {

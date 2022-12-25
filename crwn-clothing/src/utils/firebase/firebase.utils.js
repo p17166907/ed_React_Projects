@@ -14,6 +14,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
+console.log('firebaseAp._options',firebaseApp._options);
 
 const provider = new GoogleAuthProvider();
 // provider.setCustomParameters() Sets the OAuth custom parameters to pass in an OAuth request for popup and redirect sign-in operations.
@@ -37,12 +38,33 @@ export const db = getFirestore()
 
 export const createUserDocumentFromAuth = async (userAuth) =>
 {
+
+  console.log('userAuth', userAuth);
+
   const userDocRef = doc(db, 'users',  userAuth.uid)
   console.log('userDocRef', userDocRef);
 
   const userSnapshot = await getDoc(userDocRef)
   console.log('userSnapshot',userSnapshot);
   console.log('userSnapshot.exists()',userSnapshot.exists());
+
+  if (!userSnapshot.exists())
+  {
+    const {displayName, email, emailVerified, metadata} = userAuth
+    console.log(displayName, email + ' ' + 'emailVerified:' + emailVerified, metadata);
+
+    const createdAt = new Date()
+
+    try
+    {
+      await setDoc(userDocRef, {displayName, email, createdAt})
+    } catch (error) 
+    {
+      console.log('error creating user', error.message);
+    }
+  }
+
+  return userDocRef
 
 }
 

@@ -6,8 +6,8 @@ export const SignIn = () =>
   {
     // wait for signInWithGooglePopup() saved in response
     const {user} = await signInWithGooglePopup(); 
-    createUserDocumentFromAuth(user);
-    console.log('user', user);
+     const userDocRef = await createUserDocumentFromAuth(user);
+    console.log('SignIn component', 'user:', user, 'userDocRef:', userDocRef);
   };
   return (
     <div>

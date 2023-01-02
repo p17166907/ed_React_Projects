@@ -11,6 +11,7 @@ export const App = () => {
   return (
     <Routes>
       <Route path='/' element={<Navigation />}>
+      {/* This Route component specifies that the Home component should be rendered when the URL path matches the parent Route component's path attribute of '/ */}
         <Route index element={<Home />} />
         <Route path='shop' element={<Shop />} />
         <Route path='sign-in' element={<SignIn />} />

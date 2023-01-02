@@ -16,9 +16,9 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 console.log('firebaseAp._options',firebaseApp._options);
 
-const provider = new GoogleAuthProvider();
+const GoogleProvider = new GoogleAuthProvider();
 // provider.setCustomParameters() Sets the OAuth custom parameters to pass in an OAuth request for popup and redirect sign-in operations.
-provider.setCustomParameters({prompt: 'select_account',});
+GoogleProvider.setCustomParameters({prompt: 'select_account',});
 
 export const createUserProfileDocument = async (userAuth, additionalData) =>
 {
@@ -29,7 +29,9 @@ export const createUserProfileDocument = async (userAuth, additionalData) =>
 // Returns the Auth instance associated with the provided @firebase/app#FirebaseApp.
 //If no instance exists, initializes an Auth instance with platform-specific default dependencies.
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export const signInWithGooglePopup = () => signInWithPopup(auth,  GoogleProvider);
+// Authenticates a Firebase client using a full-page redirect flow.
+export const signInWithGoogleRedirect = () => signInWithRedirect(auth,  GoogleProvider);
 
 // Returns the existing Firestore instance that is associated 
 //with the provided @firebase/app#FirebaseApp. 
@@ -51,7 +53,8 @@ export const createUserDocumentFromAuth = async (userAuth) =>
   if (!userSnapshot.exists())
   {
     const {displayName, email, emailVerified, metadata} = userAuth
-    console.log(displayName, email + ' ' + 'emailVerified:' + emailVerified, metadata);
+
+    console.log(`DISPLAY-NAME: ${displayName}, EMAIL: ${email}, IS EMAIL VERIFIED: ${emailVerified}, METADATA: ${ metadata}`);
 
     const createdAt = new Date()
 
